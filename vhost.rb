@@ -1,7 +1,7 @@
 require 'date'
 
 if ARGV.length > 1; then
-        puts "Usage: mynameis <firstname>"
+        puts "Usage: vhost <domain>"
         exit
 elsif  ARGV.length == 0; then
         print "Enter domain name: "
