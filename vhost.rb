@@ -4,7 +4,8 @@ print "Enter domain name: "
 domain = gets.chomp
 year = DateTime.now.year
 
-puts "\033[96m<VirtualHost *:80>
+puts <<EOF
+\033[96m<VirtualHost *:80>
    ServerAdmin webmaster@#{domain}
    DocumentRoot /var/www/vhosts/#{domain}/httpdocs
    ServerName #{domain}
@@ -31,7 +32,8 @@ puts "\033[96m<VirtualHost *:80>
 #   SSLCertificateFile /etc/pki/tls/certs/#{year}-#{domain}.crt
 #   SSLCACertificateFile /etc/pki/tls/certs/#{year}-#{domain}.CA.crt
 #   SSLCertificateKeyFile /etc/pki/tls/private/#{year}-#{domain}.key
-#</VirtualHost>"
+#</VirtualHost\033[0m
+EOF
 
 
 print "Press ENTER to exit..."
