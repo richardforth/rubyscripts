@@ -1,7 +1,15 @@
 require 'date'
 
-print "Enter domain name: "
-domain = gets.chomp
+if ARGV.length > 1; then
+        puts "Usage: mynameis <firstname>"
+        exit
+elsif  ARGV.length == 0; then
+        print "Enter domain name: "
+        domain = gets.chomp
+else
+        domain = ARGV[0].chomp
+end
+
 year = DateTime.now.year
 
 puts <<EOF
@@ -34,7 +42,3 @@ puts <<EOF
 #   SSLCertificateKeyFile /etc/pki/tls/private/#{year}-#{domain}.key
 #</VirtualHost\033[0m
 EOF
-
-
-print "Press ENTER to exit..."
-gets
