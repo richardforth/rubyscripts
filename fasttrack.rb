@@ -10,7 +10,7 @@ hours = diff[0]
 # Current bug .75 means 75% or 45 minutes, currently printing 75 minutes
 # convert eg 75 to float (75.0)
 p diff[1]
-minutes = 60 * (diff[1].to_f / 100) # change to .75 and back to string literal
+minutes = 60 * (diff[1].to_f / 100) # change to .75 and back to integer
 minutes = minutes.floor.round(0)
 minutes = minutes.to_i
 puts "Your current fast ends in #{hours} hours and #{minutes} minutes."
