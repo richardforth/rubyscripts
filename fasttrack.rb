@@ -1,7 +1,7 @@
 # fast tracker
 require 'date'
 date_fast_starts = Time.new(2019,11,13,07,00,00,00)
-date_fast_ends = Time.new(2019,11,16,07,00,00,00)
+date_fast_ends = Time.new(2019,11,14,07,00,00,00)
 date_now = Time.now
 
 # sanity check if start date is in the future
@@ -17,7 +17,11 @@ else
   minutes = 60 * (diff[1].to_f / 100) # change to .75 and back to string literal
   minutes = minutes.floor.round(0)
   minutes = minutes.to_i
-  puts "Your current fast ends in #{hours} hours and #{minutes} minutes."
+  if date_fast_ends < date_now
+    puts "Your fast ended #{hours.to_i.abs} hours and #{minutes} minutes ago."
+  else
+    puts "Your current fast ends in #{hours} hours and #{minutes} minutes."
+  end
 end
 
 diff2 = ((date_now - date_fast_starts) /3600).round(2)
