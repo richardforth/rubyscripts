@@ -1,10 +1,11 @@
 require 'date'
+require 'awesome_print'
 
 if ARGV.length > 1; then
         puts "Usage: vhost <domain>"
         exit
 elsif  ARGV.length == 0; then
-        puts "Enter domain name: "
+        p "Enter domain name: "
         domain = gets.chomp
 else
         domain = ARGV[0].chomp
@@ -12,7 +13,7 @@ end
 
 year = DateTime.now.year
 
-puts <<EOF
+puts <<EOF.cyan
 \033[96m<VirtualHost *:80>
    ServerAdmin webmaster@#{domain}
    DocumentRoot /var/www/vhosts/#{domain}/httpdocs
@@ -24,7 +25,8 @@ puts <<EOF
       AllowOverride All
    </Directory>
 </VirtualHost>
-
+EOF
+puts <<EOF.blue
 #<VirtualHost *:443>
 #   ServerAdmin webmaster@#{domain}
 #   DocumentRoot /var/www/vhosts/#{domain}/httpdocs
@@ -40,5 +42,5 @@ puts <<EOF
 #   SSLCertificateFile /etc/pki/tls/certs/#{year}-#{domain}.crt
 #   SSLCACertificateFile /etc/pki/tls/certs/#{year}-#{domain}.CA.crt
 #   SSLCertificateKeyFile /etc/pki/tls/private/#{year}-#{domain}.key
-#</VirtualHost>\033[0m
+#</VirtualHost>
 EOF
