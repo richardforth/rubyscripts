@@ -14,7 +14,7 @@ end
 year = DateTime.now.year
 
 puts <<EOF.cyan
-\033[96m<VirtualHost *:80>
+<VirtualHost *:80>
    ServerAdmin webmaster@#{domain}
    DocumentRoot /var/www/vhosts/#{domain}/httpdocs
    ServerName #{domain}
