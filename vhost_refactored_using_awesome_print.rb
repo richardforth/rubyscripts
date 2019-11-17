@@ -26,7 +26,7 @@ puts <<EOF.cyan
    </Directory>
 </VirtualHost>
 EOF
-puts <<EOF.blue
+puts <<EOF.redish
 #<VirtualHost *:443>
 #   ServerAdmin webmaster@#{domain}
 #   DocumentRoot /var/www/vhosts/#{domain}/httpdocs
