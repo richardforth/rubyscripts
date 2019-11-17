@@ -11,7 +11,7 @@ else
   diff = ((date_fast_ends - date_now) / 3600).round(2)
   diff = diff.to_s.split('.')
   hours = diff[0]
-  # Current bug .75 means 75% or 45 minutes, currently printing 75 minutes
+  # Current bug .75 means 75% or 45 minutes, currently putsing 75 minutes
   # convert eg 75 to float (75.0)
   # p diff[1]
   minutes = 60 * (diff[1].to_f / 100) # change to .75 and back to string literal
@@ -27,7 +27,7 @@ end
 diff2 = ((date_now - date_fast_starts) /3600).round(2)
 diff2 = diff2.to_s.split('.')
 hours2 = diff2[0]
-# Current bug .75 means 75% or 45 minutes, currently printing 75 minutes
+# Current bug .75 means 75% or 45 minutes, currently putsing 75 minutes
 # convert eg 75 to float (75.0)
 # p diff[1]
 minutes2 = 60 * (diff2[1].to_f / 100) # change to .75 and back to string literal

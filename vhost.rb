@@ -4,7 +4,7 @@ if ARGV.length > 1; then
         puts "Usage: vhost <domain>"
         exit
 elsif  ARGV.length == 0; then
-        print "Enter domain name: "
+        puts "Enter domain name: "
         domain = gets.chomp
 else
         domain = ARGV[0].chomp
