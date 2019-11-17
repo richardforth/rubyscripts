@@ -10,16 +10,14 @@ puts "Hello #{rank}, welcome back!"
 
 # so far so good, no lag
 
-<<NOTWORKING
-password = cli.ask("What is your password? ") { |q|
-  unless q == "\n"
-    q.echo = false
-  else
-    q.echo = true
-  end
-}
-NOTWORKING
 <<STILLNOTWORKINGHOWIWANT
+password = cli.ask("What is your password? ") { |q|
+    q.echo = "*"
+}
+
+
+
+
 foo = Proc.new { |prompt| prompt.echo = false }
 password = cli.ask("Enter your new password: ", &foo)
 # same....wonder if its a windows thing?
