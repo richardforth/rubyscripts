@@ -33,7 +33,7 @@ hours2 = diff2[0]
 minutes2 = 60 * (diff2[1].to_f / 100) # change to .75 and back to string literal
 minutes2 = minutes2.floor.round(0)
 minutes2 = minutes2.to_i
-if hours2.to_i <= 0
+if hours2.to_i <= 0 && date_fast_starts > date_now
   puts "Your next fast starts in #{hours2.to_i.abs} hours and #{minutes2} minutes."
 elsif hours2.to_i >= 72
   puts "You have currently been fasting for #{hours2} hours and #{minutes2} minutes."
