@@ -40,10 +40,10 @@ end
 def main(end_num, results_list, fi_list, bi_list, fbi_list)
   i = 0
   while i <= end_num
-    puts "\e[H\e[2J"
+    #puts "\e[H\e[2J"
     results_list.push(fizzbuzz(i))
     p results_list
-    if results_list[i].class == String
+    if results_list[i].include?("FizzBuzz")
       if fbi_list[0].class == String
         fbi_list[0] = i
       else
