@@ -15,7 +15,7 @@ def fizzbuzz(i)
 end
 
 def displayResults(results)
-  s =  results.size
+  s = results.size
   #p results
   i = 0
   while i < s
@@ -42,20 +42,19 @@ def main(end_num, results_list, fi_list, bi_list, fbi_list)
   while i <= end_num
     #puts "\e[H\e[2J"
     results_list.push(fizzbuzz(i))
-    p results_list
-    if results_list[i].include?("FizzBuzz")
+    if results_list[-1].include?("FizzBuzz")
       if fbi_list[0].class == String
         fbi_list[0] = i
       else
         fbi_list.push(i)
       end
-    elsif results_list[i].include?("Fizz")
+    elsif results_list[-1].include?("Fizz")
       if fi_list[0].class == String
         fi_list[0] = i
       else
         fi_list.push(i)
       end
-    elsif results_list[i].include?("Buzz")
+    elsif results_list[-1].include?("Buzz")
       if bi_list[0].class == String
         bi_list[0] = i
       else
