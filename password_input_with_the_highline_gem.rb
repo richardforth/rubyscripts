@@ -37,4 +37,5 @@ puts "Hello #{name}, nice to meet you!"
 # .. See what its doing to that 1st 'R' character? yet its read it in correctly!?
 # there seems to be some sort of delay. only on next keypress after RETURN does
 # the next question appear, even though its remembered the keypress. Wierd.
-# I get the same in powershell too, not sure about linux systems yet, will confirm.
+# I first thought it was windows cmd prompt being wierd, but I get the same
+# in powershell too, not sure about linux systems yet, will confirm.
