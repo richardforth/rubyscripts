@@ -40,7 +40,7 @@ end
 def main(end_num, results_list, fi_list, bi_list, fbi_list)
   i = 0
   while i <= end_num
-    puts "\e[H\e[2J"
+    #puts "\e[H\e[2J"
     results_list.push(fizzbuzz(i))
     if results_list[-1].include?("FizzBuzz")
       if fbi_list[0].class == String
@@ -77,10 +77,16 @@ def main(end_num, results_list, fi_list, bi_list, fbi_list)
   end
 end
 
-
 results = []
 fizz_items = []
 buzz_items = []
 fizzbuzz_items = []
-main(69, results, fizz_items, buzz_items, fizzbuzz_items)
+if ARGV.length != 1
+  puts "launching demo mode, using 45 as argument..."
+  sleep 2
+  main(45, results, fizz_items, buzz_items, fizzbuzz_items)
+else
+  end_num = ARGV[0].to_i
+  main(end_num, results, fizz_items, buzz_items, fizzbuzz_items)
+end
 # end report
