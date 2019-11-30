@@ -1,5 +1,5 @@
-# require "./config.rb"
-require_relative "config"
+# require "./config.rb" # Linux
+require_relative "config" # Windows
 
 Title = Config::TITLE
 Version = Config::VERSION
