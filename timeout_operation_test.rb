@@ -91,3 +91,6 @@ describe InterruptTest do
     end
   end
 end
+
+# While these tests are currently passing, I am aware of multiple internet
+# reports of how broken 'timeout' is. Will be looking at alternative options.
