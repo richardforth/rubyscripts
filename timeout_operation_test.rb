@@ -26,16 +26,23 @@
 # module as it is "fundamentally broken".
 #
 require 'rspec/autorun'
+require 'timeout'
 
 class InterruptTest
   def initialize(hash)
-    @sleep_time = hash[:sleep_time]
-    @timeout_time = hash[:timeout_time]
+    @sleep_sec = hash[:sleep_sec]
+    @timeout_sec = hash[:timeout_sec]
   end
 
   def run
     @start_time = Time.now
-    sleep @sleep_time
+    begin
+      Timeout.timeout(@timeout_sec) do
+        sleep @sleep_sec
+      end
+    rescue
+      @end_time = Time.now
+    end
     @end_time = Time.now
   end
 
@@ -45,18 +52,26 @@ class InterruptTest
   end
 end
 
-#params = {sleep_time: 15}
+# params = {
+#   sleep_sec: 15,
+#   timeout_sec: 999
+# }
+# mytest1 = InterruptTest.new(params)
+# p mytest1.run_test # 15
 #
-#test1 = InterruptTest.new(params)
-#result = test1.run_test
-#p result
+# params = {
+#   sleep_sec: 15,
+#   timeout_sec: 10
+# }
+# mytest2 = InterruptTest.new(params)
+# p mytest2.run_test # 10
 
 describe InterruptTest do
-  context "run time no timeout" do
+  context "run time with excessive timeout" do
     it "runs for given time" do
       params = {
-        sleep_time: 15,
-        timeout_time: 10
+        sleep_sec: 15,
+        timeout_sec: 999
       }
       mytest1 = InterruptTest.new(params)
 
@@ -67,13 +82,12 @@ describe InterruptTest do
   context "run time with timeout" do
     it "runs until timeout only" do
       params = {
-        sleep_time: 15,
-        timeout_time: 10
+        sleep_sec: 15,
+        timeout_sec: 10
       }
       mytest1 = InterruptTest.new(params)
 
       expect(mytest1.run_test).to eq(10)
     end
   end
-
 end
