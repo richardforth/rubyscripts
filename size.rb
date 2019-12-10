@@ -12,10 +12,15 @@ if ARGV.length == 1
     megabytes = kilobytes / 1024
     gigabytes = megabytes / 1024
     terabytes = gigabytes / 1024
-    puts "#{bytes} bytes is #{kilobytes} kilobytes."
-    puts "#{bytes} bytes is #{megabytes} megabytes."
-    puts "#{bytes} bytes is #{gigabytes} gigabytes."
-    puts "#{bytes} bytes is #{terabytes} terabytes."
+    #puts "#{bytes} bytes is #{kilobytes} kilobytes."
+    puts "%d bytes is %.2f kilobytes." % [bytes.to_i, kilobytes]
+    #puts "#{bytes} bytes is #{megabytes} megabytes."
+    puts "%d bytes is %.2f megabytes." % [bytes.to_i, megabytes]
+    #puts "#{bytes} bytes is #{gigabytes} gigabytes."
+    puts "%d bytes is %.2f gigabytes." % [bytes.to_i, gigabytes]
+    #puts "#{bytes} bytes is #{terabytes} terabytes."
+    puts "%d bytes is %.2f terabytes." % [bytes.to_i, terabytes]
+
   else
     usage
   end
