@@ -44,6 +44,71 @@ def is_folder(path)
 end
 
 
+def is_dir?(dir)
+  File.directory?(dir)
+end
+
+def is_file?(path)
+  File.file?(path)
+end
+
+
+def list_one_deep(dir)
+  Dir.chdir(dir) do
+    everything = Dir.glob("*") # we want hidden files and folders too (.*)
+    everythinghidden = Dir.glob(".*") # we want hidden files and folders too (.*)
+    # merge
+    everything.concat(everythinghidden)
+    dirs = []
+    everything.each { |item| dirs << dir + item if is_dir?(dir + item) }
+    # always remove '.' and '..' from the array to avoid looping
+    dirs - [".", ".."]
+    dirs
+  end
+end
+
+def count_files(dir)
+  arr = list_one_deep(dir)
+  @skipped = []
+  arr.each do |dir|
+    puts " - #{dir}"
+  end
+  puts "=" * 80
+  totalcount = 0
+  arr.each do |path|
+    count = 0
+    message = "Scanning:#{path} ..."
+    @mlen = message.length
+    print ("%-50s" % message).gsub(' ', '.')
+    STDOUT.flush
+    #puts message
+    Find.find(path) do |p|
+      @skip = 0
+      if File.basename(p) == "."
+        @skipped << p
+        @skip = 1
+        Find.prune
+      elsif File.basename(p) == ".."
+        @skipped << p
+        @skip = 1
+        Find.prune
+      end
+      if is_file?(p)
+        count += 1
+      end
+    end
+    #print "\r" + (" " * @mlen) + "\r"
+    puts '%-10s' % count unless @skip == 1
+    totalcount += count
+  end
+  puts "\nTotal: #{totalcount}"
+  puts
+  @skipped.each do |i|
+    "Skipped: #{i}"
+  end
+end
+
+
 def scan_inodes(path)
 
   myTopTwenty << hash if inode_count > myTopTwenty.highest
