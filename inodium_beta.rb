@@ -10,6 +10,8 @@ require 'awesome_print'
 # Description: Inode Hunter.
 #=--------------------------------------------------------=#
 
+@successflag = 0
+
 class CircularBuffer
   def initialize(size:)
     @max_size = size
@@ -109,25 +111,23 @@ def count_files(dir)
 end
 
 
-def scan_inodes(path)
-
-  myTopTwenty << hash if inode_count > myTopTwenty.highest
-end
-
-
 # Create a circular buffer of 20 items.
 myTopTwenty = CircularBuffer.new(size: 20)
 
 at_exit do
-  puts
-  puts
-  myTopTwenty.report.sort_by { |hsh| hsh[:count] }.reverse.each do |hash|
-    string = "%-30d : %-70s" % [hash[:count], hash[:path]]
-    puts string
+  if @successflag == 1
+    puts "\n\nDone.\n"
+  else
+    puts
+    puts
+    myTopTwenty.report.sort_by { |hsh| hsh[:count] }.reverse.each do |hash|
+      string = "%-30d : %-70s" % [hash[:count], hash[:path]]
+      puts string
+    end
+    puts
+    puts "Program terminated at #{Time.now}."
+    puts
   end
-  puts
-  puts "Program terminated at #{Time.now}."
-  puts
 end
 
 
@@ -146,70 +146,9 @@ title = "Top 20 Directories in #{fs} for inodes"
 puts title
 puts "=" * title.length
 puts
-#puts "Scanning, please wait..."
-#STDOUT.flush
-
-#p myTopTwenty.highest
-begin
-  myTopTwenty << {"path": "/var", "count": 34123 }
-  myTopTwenty << {"path": "/var/lib", "count": 2334123 }
-  myTopTwenty << {"path": "/var/lib/php", "count": 32423434123 }
-  myTopTwenty << {"path": "/var/lib/php", "count": 32423434123 }
-  myTopTwenty << {"path": "/var/lib/php", "count": 32423434123 }
-  myTopTwenty << {"path": "/var/lib/php", "count": 32423434123 }
-  myTopTwenty << {"path": "/var/lib/php", "count": 32423434123 }
-  myTopTwenty << {"path": "/var/lib/php", "count": 32423434123 }
-  myTopTwenty << {"path": "/var/lib/php", "count": 32423434123 }
-  myTopTwenty << {"path": "/var/lib/php", "count": 32423434123 }
-  myTopTwenty << {"path": "/var/lib/php", "count": 32423434123 }
-  myTopTwenty << {"path": "/var/lib/php", "count": 32423434123 }
-  myTopTwenty << {"path": "/var/lib/php", "count": 32423434123 }
-  myTopTwenty << {"path": "/var/lib/php", "count": 32423434123 }
-  myTopTwenty << {"path": "/var/lib/php", "count": 32423434123 }
-  myTopTwenty << {"path": "/var/lib/php", "count": 32423434123 }
-  myTopTwenty << {"path": "/var/lib/php", "count": 32423434123 }
-  myTopTwenty << {"path": "/var/lib/php", "count": 32423434123 }
-  myTopTwenty << {"path": "/var/lib/php", "count": 32423434123 }
-  myTopTwenty << {"path": "/var/lib/php", "count": 32423434123 }
-  myTopTwenty << {"path": "/var/lib/php", "count": 32423434123 }
-  myTopTwenty << {"path": "/var/lib/php/session", "count": 341223542345234524297863 }
-  myTopTwenty << {"path": "/var/lib/php/session", "count": 341223542345234524297863 }
-  myTopTwenty << {"path": "/var/lib/php/session", "count": 341223542345234524297863 }
-  myTopTwenty << {"path": "/var/lib/php/session", "count": 341223542345234524297863 }
-  myTopTwenty << {"path": "/var/lib/php/session", "count": 341223542345234524297863 }
-  myTopTwenty << {"path": "/var/lib/php/session", "count": 341223542345234524297863 }
-  myTopTwenty << {"path": "/var/lib/php/session", "count": 341223542345234524297863 }
-  myTopTwenty << {"path": "/var/lib/php/session", "count": 341223542345234524297863 }
-  myTopTwenty << {"path": "/var/lib/php/session", "count": 341223542345234524297863 }
-  myTopTwenty << {"path": "/var/lib/php/session", "count": 341223542345234524297863 }
-  myTopTwenty << {"path": "/var/lib/php/session", "count": 341223542345234524297863 }
-  myTopTwenty << {"path": "/var/lib/php/session", "count": 341223542345234524297863 }
-  myTopTwenty << {"path": "/var/lib/php/session", "count": 341223542345234524297863 }
-  myTopTwenty << {"path": "/var/lib/php/session", "count": 341223542345234524297863 }
-  myTopTwenty << {"path": "/var/lib/php/session", "count": 341223542345234524297863 }
-  myTopTwenty << {"path": "/var/lib/php/session", "count": 341223542345234524297863 }
-  myTopTwenty << {"path": "/var/lib/php/session", "count": 341223542345234524297863 }
-  myTopTwenty << {"path": "/var/www/", "count": 5635788934123 }
-  myTopTwenty << {"path": "/var/www/", "count": 5635788934123 }
-  myTopTwenty << {"path": "/var/www/", "count": 5635788934123 }
-  myTopTwenty << {"path": "/var/www/", "count": 5635788934123 }
-  sleep 120
-  myTopTwenty << {"path": "/var/www/", "count": 5635788934123 }
-  myTopTwenty << {"path": "/var/www/", "count": 5635788934123 }
-  myTopTwenty << {"path": "/var/www/", "count": 5635788934123 }
-  myTopTwenty << {"path": "/var/www/", "count": 5635788934123 }
-  myTopTwenty << {"path": "/var/www/", "count": 5635788934123 }
-  myTopTwenty << {"path": "/var/www/vhosts", "count": 9879685635788934123 }
-  myTopTwenty << {"path": "/var/www/vhosts/mydomain.com", "count": 563575654756788934123 }
-rescue Interrupt
-  exit
+puts
+myTopTwenty.report.sort_by { |hsh| hsh[:count] }.reverse.each do |hash|
+  string = "%-30d : %-70s" % [hash[:count], hash[:path]]
+  puts string
 end
-#p myTopTwenty.highest
-
-
-
-#scan_inodes(fs)
-#
-#puts "YOUR REPORT IS READY:"
-#puts
-#myTopTwenty.report
+puts
